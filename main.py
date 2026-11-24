@@ -20,6 +20,11 @@ def main() -> None:
     LINE.encode("utf-8")  # raises if not encodable as UTF-8
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(LINE + "\n")
+    # Read back what we wrote: the gate reads the file, so verify the file.
+    with open("/output/entry.txt", encoding="utf-8") as f:
+        written = f.read()
+    if written != LINE + "\n":
+        raise SystemExit("written entry does not match the line")
 
 
 if __name__ == "__main__":
